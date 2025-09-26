@@ -5,6 +5,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
+use App\Http\Controllers\TwoFactorController;
 
 Route::resource('post', PostController::class);
 // Route::get('/post', [PostController::class, 'index'])->name('post.index');
@@ -50,6 +51,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/verify-pin', [TwoFactorController::class, 'show'])->name('verify.pin');
+    Route::post('/verify-pin', [TwoFactorController::class, 'verify'])->name('verify.pin.store');
+    Route::post('/verify-pin/regenerate', [TwoFactorController::class, 'regenerate'])->name('verify.pin.regenerate');
 });
 
 Route::post('/post/{post}/lock', [PostController::class, 'lock'])->middleware(['auth'])->name('post.lock');

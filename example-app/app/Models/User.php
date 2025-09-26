@@ -6,6 +6,8 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\TwoFactorCodeMail;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -48,5 +50,13 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function posts() {
         return $this->hasMany(Post::class);
+    }
+
+    public function generateTwoFactorCode()
+    {
+        $this->two_factor_code = random_int(100000, 999999);
+        $this->two_factor_expires_at = now()->addMinutes(10);
+        $this->save();
+        Mail::to($this->email)->send(new TwoFactorCodeMail($this));
     }
 }
