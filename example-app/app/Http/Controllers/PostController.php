@@ -19,7 +19,6 @@ class PostController extends Controller
     }
 
     public function store(Request $request) {
-
         $validated = $request->validate([
             'title' => 'required|max:20',
             'body' => 'required|max:400',
@@ -48,7 +47,6 @@ class PostController extends Controller
     }
 
     public function update(Request $request, Post $post) {
-
         $validated = $request->validate([
             'title' => 'required|max:20',
             'body' => 'required|max:400',
