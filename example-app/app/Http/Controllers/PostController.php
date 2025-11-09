@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Gate;
+
 use Illuminate\Http\Request;
 use App\Models\Post;
 
@@ -19,7 +19,6 @@ class PostController extends Controller
     }
 
     public function store(Request $request) {
-        Gate::authorize('test');
 
         $validated = $request->validate([
             'title' => 'required|max:20',
@@ -49,7 +48,6 @@ class PostController extends Controller
     }
 
     public function update(Request $request, Post $post) {
-        Gate::authorize('test');
 
         $validated = $request->validate([
             'title' => 'required|max:20',

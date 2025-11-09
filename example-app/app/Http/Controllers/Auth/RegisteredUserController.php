@@ -45,7 +45,7 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        $user->generateTwoFactorCode();
-        return redirect()->route('verify.pin');
+        // メール認証待ち画面へリダイレクト
+        return redirect()->route('verification.notice');
     }
 }
